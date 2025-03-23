@@ -13,5 +13,5 @@ class UsersController < ApplicationController
 
         result = ActiveRecord::Base.connection.exec_query(sql)
         render json: { message: "User created manually", user: result.rows[0] }, status: :created
-
+    end
 end
