@@ -15,3 +15,4 @@ class UsersController < ApplicationController
         render json: { message: "User created manually", user: result.rows[0] }, status: :created
     end
 end
+    
