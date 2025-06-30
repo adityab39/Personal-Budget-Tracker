@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { validateEmail } from '../../utils/helper'; 
 
 const Login = () => {
 
@@ -14,7 +15,18 @@ const Login = () => {
 
 
     const handleLogin = async (e) => {
+        e.preventDefault();
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+        if (!password || password.length < 8) {
+            setError("Password must be at least 8 characters long.");
+            return;
+        }
+        setError("");
 
+        // Login API CALL
     }
 
   return (
