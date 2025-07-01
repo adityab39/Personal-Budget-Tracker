@@ -3,6 +3,8 @@ require 'bcrypt'
 module Api
   module V1
       class AuthController < ApplicationController
+          before_action :authorize_request, only: [:user_info]
+
           def register
             full_name = params[:fullName]
             email = params[:email]
@@ -72,13 +74,42 @@ module Api
               render json: { message: "Error logging in", error: e.message }, status: :internal_server_error
           end
 
+          def user_info
+            begin
+              user_result = ActiveRecord::Base.connection.exec_query("SELECT * FROM users WHERE id = #{@current_user_id} LIMIT 1")
+              if user_result.empty?
+                return render json: { message: "User not found" }, status: :not_found
+              end
+
+              user = user_result.first.except("password")
+              render json: user, status: :ok
+              rescue => e
+                render json: { message: "Error retrieving user", error: e.message }, status: :internal_server_error
+            end 
+          end
+
           private
           def generate_token(user_id)
             payload = { user_id: user_id, exp: 7.days.from_now.to_i }
             JWT.encode(payload, Rails.application.secret_key_base)
           end
 
-          
+          def authorize_request
+            header = request.headers['Authorization']
+            token = header.split(' ').last if header.present?
+            if token.blank?
+              return render json: { message: 'Not authorized, no token' }, status: :unauthorized
+            end
+
+            begin
+              decoded = JWT.decode(token, Rails.application.secret_key_base)[0]
+              @current_user_id = decoded["user_id"]
+              rescue JWT::DecodeError => e
+                render json: { message: 'Not authorized, token failed', error: e.message }, status: :unauthorized
+            end
+          end
+
+
       end
   end
 end

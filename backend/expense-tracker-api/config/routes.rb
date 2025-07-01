@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'auth/register', to: 'auth#register'
       post 'auth/login', to: 'auth#login'
-      get 'auth/user', to: 'auth#user_info'
+      get 'auth/getUser', to: 'auth#user_info'
     end
   end
 end
