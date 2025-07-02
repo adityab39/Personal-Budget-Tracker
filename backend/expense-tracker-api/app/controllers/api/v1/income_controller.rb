@@ -44,6 +44,22 @@ module Api
                 end
             end
 
+            def deleteIncome
+                user_id = request_user_id.to_i
+                ncome_id = params[:id]
+
+                begin
+                    ActiveRecord::Base.connection.execute("
+                        DELETE FROM incomes
+                        WHERE id = #{income_id} AND user_id = #{user_id}
+                    ")
+                    
+                    render json: { message: "Income deleted successfully" }, status: :ok
+                    rescue => e
+                        render json: { message: "Server Error", error: e.message }, status: :internal_server_error
+                end
+            end
+
             private
             def authorize_request
                 header = request.headers['Authorization']
