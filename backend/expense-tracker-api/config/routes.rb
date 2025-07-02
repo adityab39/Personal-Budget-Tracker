@@ -7,4 +7,14 @@ Rails.application.routes.draw do
       post "auth/upload-image", to: "auth#upload_image"
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      post 'income/add', to: 'income#addIncome'
+      get 'income/get', to: 'income#getIncome'
+      delete 'income/:id', to: 'income#deleteIncome'
+      get 'income/downloadExcel', to: 'income#downloadIncomeExcel'
+    end
+  end
+
 end
