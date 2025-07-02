@@ -88,6 +88,33 @@ module Api
             end 
           end
 
+          def upload_image
+            uploaded_file = params[:image]
+
+            if uploaded_file.nil?
+              return render json: { message: "No file provided" }, status: :bad_request
+            end
+
+            allowed_types = ["image/jpeg", "image/png", "image/jpg"]
+            unless allowed_types.include?(uploaded_file.content_type)
+              return render json: { message: "Only .jpeg, .jpg and .png formats are allowed" }, status: :unprocessable_entity
+            end
+
+            filename = "#{Time.now.to_i}_#{uploaded_file.original_filename}"
+            filepath = Rails.root.join("public", "uploads", filename)
+
+            File.open(filepath, "wb") do |file|
+              file.write(uploaded_file.read)
+            end
+
+            render json: {
+              message: "File uploaded successfully",
+              url: "#{request.base_url}/uploads/#{filename}"
+            }, status: :ok
+            rescue => e
+              render json: { message: "Upload failed", error: e.message }, status: :internal_server_error
+          end
+
           private
           def generate_token(user_id)
             payload = { user_id: user_id, exp: 7.days.from_now.to_i }

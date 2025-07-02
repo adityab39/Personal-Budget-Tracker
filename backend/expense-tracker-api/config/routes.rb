@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post 'auth/register', to: 'auth#register'
       post 'auth/login', to: 'auth#login'
       get 'auth/getUser', to: 'auth#user_info'
+      post "auth/upload-image", to: "auth#upload_image"
     end
   end
 end
