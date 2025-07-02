@@ -1,3 +1,4 @@
+require 'caxlsx'
 
 module Api
     module V1
@@ -58,6 +59,34 @@ module Api
                     rescue => e
                         render json: { message: "Server Error", error: e.message }, status: :internal_server_error
                 end
+            end
+
+            def downloadIncomeExcel
+                user_id = request_user_id
+                income_data = ActiveRecord::Base.connection.exec_query("
+                SELECT source, amount, date FROM incomes
+                WHERE user_id = '#{user_id}'
+                ORDER BY date DESC
+                ")
+
+                p = Axlsx::Package.new
+                wb = p.workbook
+
+                wb.add_worksheet(name: "Income") do |sheet|
+                    sheet.add_row ["Source", "Amount", "Date"]
+                    income_data.each do |item|
+                        sheet.add_row [item["source"], item["amount"], item["date"]]
+                    end
+                end
+
+                filename = "income_details_#{Time.now.strftime('%Y%m%d_%H%M%S')}.xlsx"
+                filepath = Rails.root.join("tmp", filename)
+                p.serialize(filepath)
+
+                send_file filepath, filename: filename, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                rescue => e
+                    render json: { message: "Server Error", error: e.message }, status: :internal_server_error
+
             end
 
             private
