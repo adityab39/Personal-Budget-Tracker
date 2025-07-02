@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'income/add', to: 'income#addIncome'
       get 'income/get', to: 'income#getIncome'
-      delete 'income/:id', to: 'income#deleteIncome'
+      delete 'income/delete', to: 'income#deleteIncome'
       get 'income/downloadExcel', to: 'income#downloadIncomeExcel'
     end
   end

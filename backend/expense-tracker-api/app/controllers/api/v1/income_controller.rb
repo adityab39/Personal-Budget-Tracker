@@ -46,7 +46,7 @@ module Api
 
             def deleteIncome
                 user_id = request_user_id.to_i
-                ncome_id = params[:id]
+                income_id = params[:id]
 
                 begin
                     ActiveRecord::Base.connection.execute("
