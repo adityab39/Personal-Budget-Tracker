@@ -5,6 +5,8 @@ import Input from '../../components/Inputs/Input';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper'; 
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const Login = () => {
 
@@ -24,9 +26,27 @@ const Login = () => {
             setError("Password must be at least 8 characters long.");
             return;
         }
-        setError("");
+        setError(""); 
 
-        // Login API CALL
+        try {
+          const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+            email,
+            password,
+          });
+
+          const { token, user } = response.data;
+
+          if (token) {
+            localStorage.setItem("token", token);
+            navigate("/dashboard");
+          }
+        } catch (error) {
+          if (error.response && error.response.data.message) {
+            setError(error.response.data.message);
+          } else {
+            setError("Something went wrong. Please try again.");
+          }
+        }
     }
 
   return (
