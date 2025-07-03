@@ -3,7 +3,7 @@ require 'bcrypt'
 module Api
   module V1
       class AuthController < ApplicationController
-          before_action :authorize_request, only: [:user_info]
+          before_action :authorize_request, only: [:user_info, :upload_image]
 
           def register
             full_name = params[:fullName]
@@ -102,10 +102,15 @@ module Api
 
             filename = "#{Time.now.to_i}_#{uploaded_file.original_filename}"
             filepath = Rails.root.join("public", "uploads", filename)
+            url = "#{request.base_url}/uploads/#{filename}"
+            escaped_url = ActiveRecord::Base.connection.quote(url)
 
             File.open(filepath, "wb") do |file|
               file.write(uploaded_file.read)
             end
+
+           sql = "UPDATE users SET profile_image_url = #{escaped_url} WHERE id = #{@current_user_id}"
+           user_result = ActiveRecord::Base.connection.exec_query(sql)
 
             render json: {
               message: "File uploaded successfully",
