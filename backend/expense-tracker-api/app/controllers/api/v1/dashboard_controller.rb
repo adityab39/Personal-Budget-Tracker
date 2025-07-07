@@ -5,21 +5,18 @@ module Api
         def getDashboardData
             user_id = request_user_id
 
-            # Total Income
             total_income_result = ActiveRecord::Base.connection.exec_query("
             SELECT COALESCE(SUM(amount), 0) AS total FROM incomes
             WHERE user_id = '#{user_id}'
             ")
             total_income = total_income_result.first["total"]
 
-            # Total Expense
             total_expense_result = ActiveRecord::Base.connection.exec_query("
             SELECT COALESCE(SUM(amount), 0) AS total FROM expenses
             WHERE user_id = '#{user_id}'
             ")
             total_expense = total_expense_result.first["total"]
 
-            # Income last 60 days
             income_last_60_days_result = ActiveRecord::Base.connection.exec_query("
             SELECT * FROM incomes
             WHERE user_id = '#{user_id}' AND date >= CURRENT_DATE - INTERVAL '60 days'
@@ -27,7 +24,6 @@ module Api
             ")
             income_last_60_days_total = income_last_60_days_result.to_a.sum { |tx| tx["amount"] }
 
-            # Expense last 30 days
             expense_last_30_days_result = ActiveRecord::Base.connection.exec_query("
             SELECT * FROM expenses
             WHERE user_id = '#{user_id}' AND date >= CURRENT_DATE - INTERVAL '30 days'
@@ -35,7 +31,6 @@ module Api
             ")
             expense_last_30_days_total = expense_last_30_days_result.to_a.sum { |tx| tx["amount"] }
 
-            # Last 5 transactions (income and expenses)
             income_last_5 = ActiveRecord::Base.connection.exec_query("
             SELECT *, 'income' AS type FROM incomes
             WHERE user_id = '#{user_id}'
