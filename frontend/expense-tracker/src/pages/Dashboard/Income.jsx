@@ -6,6 +6,9 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { useEffect } from "react";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import Modal from "../../components/layouts/Modal";
+import AddIncomeForm from "../../components/Income/AddIncomeForm";
+import { toast } from "react-toastify";
+
 
 const Income = () => {
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
@@ -16,7 +19,6 @@ const Income = () => {
     data: null,
   });
 
-  // Get All Income Details
   const fetchIncomeDetails = async () => {
     if (loading) return;
 
@@ -37,8 +39,46 @@ const Income = () => {
     }
   };
 
+
   // Handle Add Income
-  const handleAddIncome = async (income) => {};
+  const handleAddIncome = async (income) => {
+  const { source, amount, date, icon } = income;
+
+    // Validation Checks
+    if (!source.trim()) {
+      toast.error("Source is required.");
+      return;
+    }
+
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      toast.error("Amount should be a valid number.");
+      return;
+    }
+
+    if (!date) {
+      toast.error("Date is required.");
+      return;
+    }
+
+    try {
+      await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
+        source,
+        amount,
+        date,
+        icon,
+      });
+
+      setOpenAddIncomeModal(false);
+      toast.success("Income added successfully");
+      fetchIncomeDetails();
+    } catch (error) {
+      console.error(
+        "Error adding income:",
+        error.response?.data?.message || error.message
+      );
+    }
+
+  };
 
   // Delete Income
   const deleteIncome = async (id) => {};
@@ -56,7 +96,7 @@ const Income = () => {
     <DashboardLayout activeMenu="Income">
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
-          <div className="">
+          <div className="card">
             <IncomeOverview
               transactions={incomeData}
               onAddIncome={() => setOpenAddIncomeModal(true)}

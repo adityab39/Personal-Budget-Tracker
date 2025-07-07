@@ -34,7 +34,8 @@ module Api
                 
                 begin
                     incomes = ActiveRecord::Base.connection.exec_query("
-                        SELECT * FROM incomes
+                        SELECT id, user_id, icon, source, CAST(amount AS INTEGER) AS amount, date, created_at, updated_at
+                        FROM incomes
                         WHERE user_id = #{user_id}
                         ORDER BY date DESC
                     ")
