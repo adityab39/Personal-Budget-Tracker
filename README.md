@@ -1,43 +1,54 @@
-# 💰 Personal Budget Tracker
+# Personal Budget Tracker
 
-A full-stack web application that helps users manage their income and expenses efficiently. Visualize financial trends, categorize transactions, and download reports — all from a clean, modern dashboard.
-
----
-
-## 🚀 Features
-
-- 🔐 **User Authentication** (Register/Login with JWT)
-- 🧾 **Add, View & Delete Income/Expense Entries**
-- 📊 **Visual Charts** for financial insights (Recharts)
-- 📅 **Date-wise Sorting** of Transactions
-- 📥 **Download Expenses as Excel**
-- 🌗 **Responsive UI** with modern styling (Tailwind CSS)
-- 🖼️ **Profile Image Upload** (optional)
+A full-stack web application to track your personal income and expenses. Built with React (Vite), Ruby on Rails, PostgreSQL, and Tailwind CSS.
 
 ---
 
-## 🖼️ Screenshots
+## Features
 
-| Dashboard | Add Transaction | Charts |
-|-----------|------------------|--------|
-| ![Dashboard](./screenshots/dashboard.png) | ![Add](./screenshots/add.png) | ![Chart](./screenshots/chart.png) |
+- User Authentication (JWT-based)
+- Add, view, delete income and expense entries
+- Interactive bar charts for income/expenses (using Recharts)
+- Download data as Excel
+- Image upload support (e.g., category icons)
+- Responsive design
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
-- **React**
-- **Vite**
-- **Tailwind CSS**
-- **Axios**
-- **Recharts**
+- React (Vite)
+- Tailwind CSS
+- Axios
+- Recharts
+- React Router
+- Toastify
 
 ### Backend
-- **Ruby on Rails (API only)**
-- **PostgreSQL**
-- **JWT Authentication**
+- Ruby on Rails (API only)
+- PostgreSQL
+- JWT for authentication
+- Caxlsx for Excel generation
 
 ---
 
-## 📁 Project Structure
+## Installation
+
+### Backends
+
+
+```bash
+cd backend/expense-tracker-api
+bundle install
+rails db:create db:migrate
+rails server 
+
+### Frontend
+cd frontend/expense-tracker
+npm install
+npm run dev
+
+### License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for more information.
