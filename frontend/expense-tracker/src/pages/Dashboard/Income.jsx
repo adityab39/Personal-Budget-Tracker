@@ -7,10 +7,12 @@ import { useEffect } from "react";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import Modal from "../../components/layouts/Modal";
 import AddIncomeForm from "../../components/Income/AddIncomeForm";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 
 const Income = () => {
+  useUserAuth();
+  
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
