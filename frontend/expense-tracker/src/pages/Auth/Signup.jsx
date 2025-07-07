@@ -43,21 +43,11 @@ const SignUp = () => {
     }
     setError(""); 
 
-    //SIGN UP API CALL
-
     try {
-
-      // If a profile picture is selected, upload it
-      if (profilePic) {
-        const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || ""; 
-      }
-
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
-        password,
-        profileImageUrl
+        password
       });
 
       const { token, user } = response.data;
@@ -65,6 +55,12 @@ const SignUp = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
+        
+        if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || ""; 
+      }
+
         navigate("/dashboard");
       }
     } catch (error) {

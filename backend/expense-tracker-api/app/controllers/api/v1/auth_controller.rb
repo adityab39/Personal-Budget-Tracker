@@ -9,7 +9,7 @@ module Api
             full_name = params[:fullName]
             email = params[:email]
             password = params[:password]
-            profile_image_url = params[:profileImageUrl]
+            profile_image_url = params[:profileImageUrl] || ""
 
             if full_name.blank? || email.blank? || password.blank?
               return render json: { message: "All fields are required" }, status: :bad_request
