@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       post 'income/add', to: 'income#addIncome'
       get 'income/get', to: 'income#getIncome'
       delete 'income/delete/:id', to: 'income#deleteIncome'
-      get 'income/downloadExcel', to: 'income#downloadIncomeExcel'
+      get 'income/downloadexcel', to: 'income#downloadIncomeExcel'
     end
   end
 
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         post 'expense/add', to: 'expense#addExpense'
         get 'expense/get', to: 'expense#getExpense'
         delete 'expense/delete/:id', to: 'expense#deleteExpense'
-        get 'expense/downloadExcel', to: 'expense#downloadExpenseExcel'
+        get 'expense/downloadexcel', to: 'expense#downloadExpenseExcel'
       end
   end
 
