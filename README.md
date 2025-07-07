@@ -1,54 +1,79 @@
-# Personal Budget Tracker
+Personal Budget Tracker
 
-A full-stack web application to track your personal income and expenses. Built with React (Vite), Ruby on Rails, PostgreSQL, and Tailwind CSS.
+A full-stack personal budget management application built with Ruby on Rails for the backend and React.js with TailwindCSS for the frontend. The app allows users to manage incomes and expenses with JWT-based authentication, charts, data exports, and image uploads.
 
----
+Features
+	•	User authentication (JWT-based)
+	•	Income & expense tracking
+	•	Visual dashboards with bar charts
+	•	Image uploads for user profiles
+	•	Excel export of income data
+	•	Responsive UI built with TailwindCSS
 
-## Features
+Tech Stack
 
-- User Authentication (JWT-based)
-- Add, view, delete income and expense entries
-- Interactive bar charts for income/expenses (using Recharts)
-- Download data as Excel
-- Image upload support (e.g., category icons)
-- Responsive design
+Frontend:
+	•	React.js
+	•	TailwindCSS
+	•	Recharts
+	•	Axios
+	•	Vite
 
----
+Backend:
+	•	Ruby on Rails
+	•	PostgreSQL
+	•	JWT
 
-## Tech Stack
+Other Tools:
+	•	Cloudinary (for image uploads)
+	•	Toastify (for notifications)
 
-### Frontend
-- React (Vite)
-- Tailwind CSS
-- Axios
-- Recharts
-- React Router
-- Toastify
+Setup Instructions
 
-### Backend
-- Ruby on Rails (API only)
-- PostgreSQL
-- JWT for authentication
-- Caxlsx for Excel generation
+Backend
 
----
-
-## Installation
-
-### Backends
-
-
-```bash
 cd backend/expense-tracker-api
 bundle install
 rails db:create db:migrate
-rails server 
+rails server
 
-### Frontend
+Frontend
+
 cd frontend/expense-tracker
 npm install
 npm run dev
 
-### License
+Folder Structure
 
-This project is licensed under the MIT License. See [LICENSE](./LICENSE) for more information.
+Personal Budget Tracker/
+├── backend/
+│   └── expense-tracker-api/
+│       ├── app/
+│       ├── config/
+│       ├── db/
+│       └── ...
+├── frontend/
+│   └── expense-tracker/
+│       ├── src/
+│       │   ├── components/
+│       │   ├── context/
+│       │   ├── pages/
+│       │   └── utils/
+│       └── ...
+
+Environment Variables
+
+Backend: Create a .env file and add:
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+SECRET_KEY_BASE=your_rails_secret_key
+
+Frontend: Create a .env file and add:
+
+VITE_API_BASE_URL=http://localhost:3000
+
+License
+
+This project is licensed under the MIT License. See LICENSE for more information.
