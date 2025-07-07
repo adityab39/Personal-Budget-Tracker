@@ -9,6 +9,8 @@ import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 import CustomLineChart from "../../components/Charts/CustomLineChart";
 import AddExpenseForm from "../../components/Expense/AddExpenseForm";
 import Modal from "../../components/layouts/Modal";
+import ExpenseList from "../../components/Expense/ExpenseList";
+import DeleteAlert from "../../components/layouts/DeleteAlert";
 
 
 const Expense = () => {
@@ -43,7 +45,6 @@ const Expense = () => {
   };
 
 
-  // Handle Add Income
   const handleAddExpense = async (expense) => {
   const { category, amount, date, icon } = expense;
 
@@ -83,6 +84,23 @@ const Expense = () => {
 
   };
 
+  const deleteExpense = async (id) => {
+  try {
+    await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+
+    setOpenDeleteAlert({ show: false, data: null });
+    toast.success("Expense details deleted successfully");
+    fetchExpenseDetails();
+  } catch (error) {
+    console.error(
+      "Error deleting income:",
+      error.response?.data?.message || error.message
+    );
+  }
+};
+
+  const handleDownloadExpenseDetails = async () => {};
+
   useEffect(() => {
     fetchExpenseDetails();
 
@@ -101,6 +119,16 @@ const Expense = () => {
               onExpenseIncome={() => setOpenAddExpenseModal(true)}
             />
           </div>
+
+          <ExpenseList
+            transactions={expenseData}
+            onDelete={(id) => {
+              setOpenDeleteAlert({ show: true, data: id });
+            }}
+            onDownload={handleDownloadExpenseDetails}
+          />
+
+
         </div>
 
         <Modal
@@ -111,7 +139,18 @@ const Expense = () => {
           <AddExpenseForm onAddExpense={handleAddExpense} />
         </Modal>
 
-
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() =>
+            setOpenDeleteAlert({ show: false, data: null })
+          }
+          title="Delete Expense"
+          >
+          <DeleteAlert
+            content="Are you sure you want to delete this expense detail?"
+            onDelete={() => deleteExpense(openDeleteAlert.data)}
+          />
+        </Modal>
       </div>
     </DashboardLayout>
   );

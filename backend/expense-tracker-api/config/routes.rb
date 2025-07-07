@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         post 'expense/add', to: 'expense#addExpense'
         get 'expense/get', to: 'expense#getExpense'
-        delete 'expense/delete', to: 'expense#deleteExpense'
+        delete 'expense/delete/:id', to: 'expense#deleteExpense'
         get 'expense/downloadExcel', to: 'expense#downloadExpenseExcel'
       end
   end

@@ -152,7 +152,7 @@ const deleteIncome = async (id) => {
             content="Are you sure you want to delete this income detail?"
             onDelete={() => deleteIncome(openDeleteAlert.data)}
           />
-          </Modal>
+        </Modal>
 
       </div>
     </DashboardLayout>
