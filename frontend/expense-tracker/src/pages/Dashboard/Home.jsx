@@ -76,12 +76,6 @@ const Home = () => {
           value={addThousandsSeparator(dashboardData?.totalExpenses || 0)}
           color="bg-red-500"
           />
-
-
-
-
-
-
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
