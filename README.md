@@ -20,7 +20,7 @@ A **full-stack personal budget tracker** that enables users to track income and 
 Watch the feature demonstrations:
 
 ### 🔹  Registration
-https://github.com/adityab39/Personal-Budget-Tracker/issues/1#issue-3213782065
+[https://github.com/adityab39/Personal-Budget-Tracker/issues/1#issue-3213782065](https://github.com/user-attachments/assets/84161b36-754d-493c-b50b-48b4145f5f60)
 
 ### 🔹 Income Page
 
