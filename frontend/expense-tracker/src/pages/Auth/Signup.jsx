@@ -61,7 +61,7 @@ const SignUp = () => {
         profileImageUrl = imgUploadRes.imageUrl || ""; 
       }
 
-        navigate("/dashboard");
+        navigate("/login");
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
