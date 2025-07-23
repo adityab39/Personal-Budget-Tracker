@@ -15,18 +15,18 @@ A **full-stack personal budget tracker** that enables users to track income and 
 
 ---
 
-## 📽️ Demo Videos
+## Demo Videos
 
 Watch the feature demonstrations:
 
-### 🔹  Registration
+### Registration
 [https://github.com/adityab39/Personal-Budget-Tracker/issues/1#issue-3213782065](https://github.com/user-attachments/assets/84161b36-754d-493c-b50b-48b4145f5f60)
 
-### 🔹 Income Page
+### Income Page
 https://github.com/user-attachments/assets/649b8452-d2a6-46f5-a9fb-bbf0bf0b76ba
 
 
-### 🔹 Expense Page
+### Expense Page
 https://github.com/user-attachments/assets/18bd51a1-dcbd-4cc3-8a5b-e139ff4c47ab
 
 
@@ -56,7 +56,7 @@ Make sure you have the following installed:
 
 ---
 
-## **📦 Installation Instructions**
+## ** Installation Instructions**
 
 ### **Backend**
 
